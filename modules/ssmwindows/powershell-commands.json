@@ -1,0 +1,14 @@
+[
+    "echo '####SG-AWS-06-02-2022####'",
+    "echo '####-WINDOWS-####'",
+    "Get-Wmiobject -Class Win32_Product -Filter \"Name LIKE '%mysql server%'\" | Select-Object -ExpandProperty Version | foreach {\"#DB-SERVICES#mysql#version#\"+ $_}",
+    "hostname | foreach {\"###HOST###\"+ $_}",
+    "wmic bios get serialnumber | foreach {\"###SERIAL###\"+ $_}",
+    "netstat -anop TCP | foreach {\"###TCP###\"+ $_}",
+    "cmd /a /c 'wmic computersystem get model,name,systemtype,manufacturer,DNSHostName,domain,TotalPhysicalMemory,NumberOfProcessors,NumberOfLogicalProcessors /format:list' | foreach {\"###CS###\"+ $_}",
+    "cmd /a /c 'wmic cpu get Manufacturer,NumberOfCores,MaxClockSpeed,DeviceID,Name,Caption /format:list' | foreach {\"###CPU###\"+ $_}",
+    "cmd /a /c 'wmic process get ProcessId, ParentProcessId, Name, ExecutablePath, Description, CommandLine /format:rawxml' | foreach {\"###PS###\"+ $_}",
+    "(Get-Disk | measure-object -Property size -Sum).Sum / 1GB | foreach {\"###DISK###\"+ $_}",
+    "(Get-WmiObject Win32_PhysicalMemory | measure-object Capacity -sum).sum/1gb | foreach {\"###RAM-GB###\"+ $_}"
+  ]
+  
